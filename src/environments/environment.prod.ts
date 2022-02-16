@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  secretKey: process.env['NG_APP_SECRET']
 };

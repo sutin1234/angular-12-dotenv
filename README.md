@@ -2,26 +2,147 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
 
-## Development server
+## add inject env
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+`$ ng add @ngx-env/builder`
 
-## Code scaffolding
+## Setup .env files
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```js
+1. create  .env at root project
+2. create  .env.development at root project
+3. create  .env.staging at root project
+4. create  .env.test at root project
+5. create  .env.production at root project
+```
 
-## Build
+## Write some secret
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash 
+.env, .env.development, .env.staging, .env.test, .env.production
+```
 
-## Running unit tests
+```bash
+NG_APP_SECRET=SECRET_KEY
+...
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
 
-## Running end-to-end tests
+## Setup environments in Angular
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1. create src/environments/environment.ts # default to development mode
+2. create src/environments/environment.development.ts # set to development mode
+3. create src/environments/environment.staging.ts # set to staging mode
+4. create src/environments/environment.test.ts # set to testing mode
+5. create src/environments/environment.production.ts # set to production mode
 
-## Further help
+## Setup angular.json environment
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```js
+1. setup configuration build state for development state
+   {
+       ...
+       build: {
+           ...
+           configurations: {
+              ...
+              "development": {
+                ...
+               },
+           }
+       },
+       serve: {
+           ...
+           configurations: {
+              ...
+              "development": {
+                "browserTarget": "angular-env:build:development"
+               },
+           }
+       }
+   }
+   ```
+
+   ```js
+2. setup configuration build state for staging staging
+   {
+       ...
+       build: {
+           ...
+           configurations: {
+              ...
+              "staging": {
+                ...
+               },
+           }
+       },
+       serve: {
+           ...
+           configurations: {
+              ...
+              "staging": {
+                "browserTarget": "angular-env:build:staging"
+               },
+           }
+       }
+   }
+   ```
+
+   ```js
+3. setup configuration build state for testing state
+   {
+       ...
+       build: {
+           ...
+           configurations: {
+              ...
+              "test": {
+                ...
+               },
+           }
+       },
+       serve: {
+           ...
+           configurations: {
+              ...
+              "test": {
+                "browserTarget": "angular-env:build:test"
+               },
+           }
+       }
+   }
+   ```
+
+   ```js
+4. setup configuration build state for production state
+   {
+       ...
+       build: {
+           ...
+           configurations: {
+              ...
+              "production": {
+                ...
+               },
+           }
+       },
+       serve: {
+           ...
+           configurations: {
+              ...
+              "production": {
+                "browserTarget": "angular-env:build:production"
+               },
+           }
+       }
+   }
+   ```
+
+   ## Setup script
+
+```js
+"start": "NODE_ENV=development ng serve --configuration development",
+"start:test": "NODE_ENV=test ng serve --configuration test",
+"start:staging": "NODE_ENV=staging ng serve --configuration staging",
+"serve:prod": "NODE_ENV=production ng serve --configuration production",
+```
